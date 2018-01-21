@@ -10,42 +10,114 @@
     <packaging>war</packaging>
     <name>file_web Maven Webapp</name>
     <url>http://maven.apache.org</url>
-
     <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- spring 测试jar -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+
+        <!-- spring jdbc -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <!-- spring事物 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+
+        <!-- aspectj切面编程的jar -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+
+        <!-- c3p0 连接池 -->
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+        </dependency>
+
+
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+
+        <!-- 添加mybatis与Spring整合的核心包 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+
+        <!-- mysql 驱动包 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+        </dependency>
+
+        <!-- springmvc 依赖jar -->
+
+        <!-- spring web -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>4.3.2.RELEASE</version>
         </dependency>
 
+        <!-- spring mvc -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>4.3.2.RELEASE</version>
         </dependency>
 
+        <!-- web servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>4.3.2.RELEASE</version>
+            <artifactId>spring-context-support </artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>2.3.21</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xj</groupId>
+            <artifactId>file_api</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
 
+
     <build>
+        <finalName>file_web</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -77,12 +149,11 @@
                 <version>6.1.25</version>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <contextPath>/crm</contextPath>
+                    <contextPath>/</contextPath>
                     <webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 
 </project>

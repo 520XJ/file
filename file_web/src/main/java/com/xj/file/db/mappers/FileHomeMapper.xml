@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.file.db.dao.FileHomeDao" >
+  <resultMap id="BaseResultMap" type="com.xj.file.model.FileHome" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_stream" property="fileStream" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, file_name, file_stream
+  </sql>
+  <sql id="whereClause" >
+    where 1 = 1
+    <if test="id != null" >
+       and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="fileName != null" >
+       and file_name = #{fileName,jdbcType=VARCHAR}
+    </if>
+    <if test="fileStream != null" >
+       and file_stream = #{fileStream,jdbcType=VARCHAR}
+    </if>
+  </sql>
+  <sql id="sort" >
+    <if test="orderByStr != null" >
+       order by ${orderByStr}
+    </if>
+  </sql>
+  <sql id="lock" >
+    <if test="lock != null and lock == true" >
+       for update
+    </if>
+  </sql>
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from file_home
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from file_home
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="count" resultType="java.lang.Long" >
+    select count(1)
+    from file_home
+    <include refid="whereClause" />
+  </select>
+  <select id="findOne" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from file_home
+    <include refid="whereClause" />
+    <include refid="sort" />
+    <include refid="lock" />
+  </select>
+  <select id="find" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from file_home
+    <include refid="whereClause" />
+    <include refid="sort" />
+    <include refid="lock" />
+  </select>
+  <insert id="save" parameterType="com.xj.file.model.FileHome" useGeneratedKeys="true" keyProperty="id" >
+    insert into file_home (file_name, file_stream)
+    values (#{fileName,jdbcType=VARCHAR}, #{fileStream,jdbcType=VARCHAR})
+  </insert>
+  <insert id="saveSte" parameterType="com.xj.file.model.FileHome" useGeneratedKeys="true" keyProperty="id" >
+    insert into file_home
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="fileStream != null" >
+        file_stream,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileStream != null" >
+        #{fileStream,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateSte" parameterType="com.xj.file.model.FileHome" >
+    update file_home
+    <set >
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileStream != null" >
+        file_stream = #{fileStream,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="update" parameterType="com.xj.file.model.FileHome" >
+    update file_home
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      file_stream = #{fileStream,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

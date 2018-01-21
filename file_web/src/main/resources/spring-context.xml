@@ -16,7 +16,7 @@
     <!--jdbc.properties-->
     <context:property-placeholder location="classpath:jdbc.properties" />
 
-    <context:component-scan base-package="com.xj">
+    <context:component-scan base-package="com.xj.file">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -47,7 +47,7 @@
 
     <!-- 配置扫描器 -->
     <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.crm.dao" />
+        <property name="basePackage" value="com.xj.file.db.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 

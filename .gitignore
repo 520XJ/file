@@ -1,4 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 test
 .idea
-.iml
+/file_parent.iml
+/file_api/file_api.iml
+/file_server/file_server.iml
