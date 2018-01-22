@@ -4,10 +4,18 @@
   <resultMap id="BaseResultMap" type="com.xj.file.model.FileHome" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="file_name" property="fileName" jdbcType="VARCHAR" />
-    <result column="file_stream" property="fileStream" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xj.file.model.FileHome" extends="BaseResultMap" >
+    <result column="file_stream" property="fileStream" jdbcType="LONGVARBINARY" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, file_name, file_stream
+    id, file_name, is_valid, create_date, update_date
+  </sql>
+  <sql id="Blob_Column_List" >
+    file_stream
   </sql>
   <sql id="whereClause" >
     where 1 = 1
@@ -17,8 +25,17 @@
     <if test="fileName != null" >
        and file_name = #{fileName,jdbcType=VARCHAR}
     </if>
+    <if test="isValid != null" >
+       and is_valid = #{isValid,jdbcType=INTEGER}
+    </if>
+    <if test="createDate != null" >
+       and create_date = #{createDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateDate != null" >
+       and update_date = #{updateDate,jdbcType=TIMESTAMP}
+    </if>
     <if test="fileStream != null" >
-       and file_stream = #{fileStream,jdbcType=VARCHAR}
+       and file_stream = #{fileStream,jdbcType=LONGVARBINARY}
     </if>
   </sql>
   <sql id="sort" >
@@ -31,9 +48,11 @@
        for update
     </if>
   </sql>
-  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="get" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from file_home
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -46,7 +65,7 @@
     from file_home
     <include refid="whereClause" />
   </select>
-  <select id="findOne" resultMap="BaseResultMap" >
+  <select id="findOne" resultMap="ResultMapWithBLOBs" >
     select
     <include refid="Base_Column_List" />
     from file_home
@@ -54,7 +73,7 @@
     <include refid="sort" />
     <include refid="lock" />
   </select>
-  <select id="find" resultMap="BaseResultMap" >
+  <select id="find" resultMap="ResultMapWithBLOBs" >
     select
     <include refid="Base_Column_List" />
     from file_home
@@ -63,14 +82,25 @@
     <include refid="lock" />
   </select>
   <insert id="save" parameterType="com.xj.file.model.FileHome" useGeneratedKeys="true" keyProperty="id" >
-    insert into file_home (file_name, file_stream)
-    values (#{fileName,jdbcType=VARCHAR}, #{fileStream,jdbcType=VARCHAR})
+    insert into file_home (file_name, is_valid, create_date, 
+      update_date, file_stream)
+    values (#{fileName,jdbcType=VARCHAR}, #{isValid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{fileStream,jdbcType=LONGVARBINARY})
   </insert>
   <insert id="saveSte" parameterType="com.xj.file.model.FileHome" useGeneratedKeys="true" keyProperty="id" >
     insert into file_home
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="fileName != null" >
         file_name,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
       </if>
       <if test="fileStream != null" >
         file_stream,
@@ -80,8 +110,17 @@
       <if test="fileName != null" >
         #{fileName,jdbcType=VARCHAR},
       </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
       <if test="fileStream != null" >
-        #{fileStream,jdbcType=VARCHAR},
+        #{fileStream,jdbcType=LONGVARBINARY},
       </if>
     </trim>
   </insert>
@@ -91,16 +130,36 @@
       <if test="fileName != null" >
         file_name = #{fileName,jdbcType=VARCHAR},
       </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
       <if test="fileStream != null" >
-        file_stream = #{fileStream,jdbcType=VARCHAR},
+        file_stream = #{fileStream,jdbcType=LONGVARBINARY},
       </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xj.file.model.FileHome" >
+    update file_home
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      is_valid = #{isValid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      file_stream = #{fileStream,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="update" parameterType="com.xj.file.model.FileHome" >
     update file_home
     set file_name = #{fileName,jdbcType=VARCHAR},
-      file_stream = #{fileStream,jdbcType=VARCHAR}
+      is_valid = #{isValid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

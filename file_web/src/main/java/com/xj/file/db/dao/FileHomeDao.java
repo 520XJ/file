@@ -1,17 +1,8 @@
 package com.xj.file.db.dao;
 
 import com.xj.file.model.FileHome;
+import com.xj.file.utils.BaseDao;
 
-public interface FileHomeDao {
-    int delete(Integer id);
+public interface FileHomeDao extends BaseDao<Integer,FileHome>{
 
-    int save(FileHome record);
-
-    int saveSte(FileHome record);
-
-    FileHome get(Integer id);
-
-    int updateSte(FileHome record);
-
-    int update(FileHome record);
 }

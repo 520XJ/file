@@ -1,5 +1,10 @@
 package com.xj.file.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 public class FileHome {
     /**
      * id
@@ -9,15 +14,35 @@ public class FileHome {
 
     /**
      * file_name
-     * 文件名
+     * 
      */
     private String fileName;
 
     /**
-     * file_stream
-     * 文件2进制流
+     * is_valid
+     * 
      */
-    private String fileStream;
+    private Integer isValid;
+
+    /**
+     * create_date
+     * 
+     */
+    @JsonFormat(pattern ="yyyy-MM-dd hh:mm:ss" )
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private Date createDate;
+
+    /**
+     * update_date
+     * 
+     */
+    private Date updateDate;
+
+    /**
+     * file_stream
+     * 
+     */
+    private byte[] fileStream;
 
     public Integer getId() {
         return id;
@@ -35,11 +60,35 @@ public class FileHome {
         this.fileName = fileName;
     }
 
-    public String getFileStream() {
+    public Integer getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Integer isValid) {
+        this.isValid = isValid;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public byte[] getFileStream() {
         return fileStream;
     }
 
-    public void setFileStream(String fileStream) {
+    public void setFileStream(byte[] fileStream) {
         this.fileStream = fileStream;
     }
 }

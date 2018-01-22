@@ -1,6 +1,7 @@
 package com.xj.file.controller;
 
 import com.xj.file.service.FilePathService;
+import com.xj.file.utils.BaseController;
 import com.xj.file.utils.FileUtil01;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping(value = "/file_path")
-public class FilePathController {
+public class FilePathController extends BaseController{
 
     @Autowired
     private FilePathService filePathService;
